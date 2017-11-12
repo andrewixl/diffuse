@@ -60,25 +60,21 @@ def history(request, game_id):
             return HttpResponse("No Availible Data")
 
     try:
-        round1 = rounds[0]
+        round1win = rounds[0]
     except IndexError:
-        round1 = 0
+        round1win = 0
     try:
-        round2 = rounds[1]
+        round2win = rounds[1]
     except IndexError:
-        round2 = 0
+        round2win = 0
     try:
-        round3 = rounds[2]
+        round3win = rounds[2]
     except IndexError:
-        round3 = 0
+        round3win = 0
     try:
-        round4 = rounds[3]
+        round4win = rounds[3]
     except IndexError:
-        round4 = 0
-    try:
-        round5 = rounds[4]
-    except IndexError:
-        round5 = 0
+        round4win = 0
 
 
 
@@ -94,11 +90,10 @@ def history(request, game_id):
     # 'round' : jsondata['round'],
     # 'gameID' : jsondata['gameID'],
     # 'roundStatus' : jsondata['roundStatus'],
-    'round1' : round1,
-    'round2' : round2,
-    'round3' : round3,
-    'round4' : round4,
-    'round5' : round5,
+    'round1' : round1win,
+    'round2' : round2win,
+    'round3' : round3win,
+    'round4' : round4win,
     'players': playersname
     }
     print playersname
