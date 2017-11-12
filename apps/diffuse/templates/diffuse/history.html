@@ -1,1 +1,56 @@
 <h1>History</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Game ID</th>
+      <th>Round Status</th>
+      <th>Round</th>
+      <th>Players</th>
+      <th>Good Team</th>
+      <th>Bad Team</th>
+      <th>Defuser</th>
+      <th>Spies</th>
+      <th>Bomb Explode Time</th>
+      <th>Bomb Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{gameID}}</td>
+      <td>{{roundStatus}}</td>
+      <td>{{round}}</td>
+      <td>{{players}}</td>
+      <td>{{goodTeam}}</td>
+      <td>{{badTeam}}</td>
+      <td>{{defuser}}</td>
+      <td>{{spies}}</td>
+      <td>{{bombExplodeTime}}</td>
+      <td>{{bombcode}}</td>
+
+      <!-- {% if product.id == theid %}
+
+        <td><form class="" action="/changestatus/{{product.id}}" method="post">
+          {% csrf_token %}
+          <select name = "status">
+            <option value="5 Votes Needed">5 Votes Needed</option>
+            <option value="Ready to Order">Ready to Order</option>
+            <option value="Needs to Be Signed">Needs to Be Signed</option>
+            <option value="Ordered">Ordered</option>
+            <option value="Recieved">Recieved</option>
+          </select>
+          <button type="submit" name="edit">Save</button>
+        </form></td>
+      {% elif theid %}
+        <td></td>
+        <td></td>
+      {% else %}
+      <td><form class="" action="/status/{{product.id}}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="edit">Edit</button>
+      </form></td>
+      {% endif %} -->
+
+    </tr>
+  </tbody>
+</table>
