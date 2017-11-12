@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import urllib2
 import json
+# from urllib import request
 
 def index(request):
    return render(request, 'diffuse/index.html')
@@ -14,23 +15,46 @@ def home(request, game_id):
 def diffuse(request, game_id):
 	return render(request, 'diffuse/diffuse.html')
 
+def gotogame(request):
+    game_id = request.POST.get('gameid')
+    return redirect('/'+ game_id + '/history')
+
 def history(request, game_id):
-    response = urllib2.urlopen('http://b5b1e790.ngrok.io/api/ActiveGame')
-    data = json.load(response)
+    try:
+        response = urllib2.urlopen('http://b5b1e790.ngrok.io/api/ActiveGame')
+        data = json.load(response)
 
-    jsondata = {}
-    for key, value in data.items():
-        jsondata[key] = value
+        jsondata = {}
+        for key, value in data.items():
+            jsondata[key] = value
 
-    rounds = []
-    rounds = jsondata['rounds']
+        rounds = []
+        rounds = jsondata['rounds']
 
-    playersarray = []
-    playersarray = jsondata['players']
+        playersarray = []
+        playersarray = jsondata['players']
 
-    playersname = {}
-    for x in playersarray:
-        playersname[x['discordUsername']] = x['score']
+        playersname = {}
+        for x in playersarray:
+            playersname[x['discordUsername']] = x['score']
+    except ValueError:
+        response = urllib2.urlopen('http://b5b1e790.ngrok.io/api/History')
+        data = json.load(response)
+
+        jsondata = {}
+        for key, value in data.items():
+            jsondata[key] = value
+
+        rounds = []
+        rounds = jsondata['rounds']
+
+        playersarray = []
+        playersarray = jsondata['players']
+
+        playersname = {}
+        for x in playersarray:
+            playersname[x['discordUsername']] = x['score']
+
 
 
 

@@ -3,6 +3,8 @@
 
   <head>
     {% load staticfiles %}
+    <meta http-equiv="refresh" content="5; URL=http://localhost:8000/1/history">
+    <!-- <meta http-equiv="refresh" content="5; URL=http://www.yourdomain.com/yoursite.html"> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -223,6 +225,11 @@
 
     <!-- Custom scripts for this template -->
     <script src="{% static 'diffuse/bootstrap/js/new-age.min.js' %}"></script>
+    <script type="text/javascript">
+      setTimeout(function(){
+        window.location.reload(1);
+      }, 5000);
+    </script>
 
   </body>
 

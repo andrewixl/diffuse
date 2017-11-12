@@ -96,6 +96,7 @@
             <div class="badges">
               <br>
               <form class="" action="/getgame" method="post">
+                {% csrf_token %}
                 Game Code: <input type="text" name="gameid">
                 <input type="submit" name="" value="Submit">
               </form>
