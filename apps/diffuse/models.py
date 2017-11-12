@@ -1,13 +1,33 @@
-# from __future__ import unicode_literals
-# from django.utils.datastructures import MultiValueDictKeyError
-# from django.db import models
-# import re
-# import bcrypt
-# from django import forms
-# from django.utils.encoding import python_2_unicode_compatible
-# from django.utils.translation import ugettext_lazy as _
-#
-# # Create your models here.
+from __future__ import unicode_literals
+from django.utils.datastructures import MultiValueDictKeyError
+from django.db import models
+import re
+import bcrypt
+from django import forms
+from django.utils.encoding import python_2_unicode_compatible
+from django.utils.translation import ugettext_lazy as _
+
+# Create your models here.
+
+class PlayerManager(models.Manager):
+    def createPlayer(self, name, score):
+        user = Player.objects.create(
+            player_name=name,player_points=score,
+            )
+        return user
+
+@python_2_unicode_compatible
+class Player(models.Model):
+    player_name = models.CharField(max_length=50)
+    player_points = models.IntegerField()
+    objects = PlayerManager()
+
+    def __str__(self):
+        return self.player_name
+
+class BombTime(models.Model):
+    bombtime = models.TimeField(_(u"Conversation Time"), blank=True)
+
 # class Game(models.Manager):
 #     def registerVendor(self, postData):
 #         results = {'status': True, 'errors': [], 'user': None}

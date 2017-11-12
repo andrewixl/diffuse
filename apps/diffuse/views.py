@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 import urllib2
 import json
+from .models import Player
 # from urllib import request
 
 def index(request):
@@ -24,7 +25,7 @@ def gotogame(request):
 
 def history(request, game_id):
     try:
-        response = urllib2.urlopen('http://b5b1e790.ngrok.io/api/ActiveGame')
+        response = urllib2.urlopen('http://ec2-34-211-226-74.us-west-2.compute.amazonaws.com/api/ActiveGame')
         data = json.load(response)
 
         jsondata = {}
@@ -40,10 +41,11 @@ def history(request, game_id):
         playersname = {}
         for x in playersarray:
             playersname[x['discordUsername']] = x['score']
+
     except ValueError:
         print "Entered Into History"
         try:
-            response = urllib2.urlopen('http://b5b1e790.ngrok.io/api/History')
+            response = urllib2.urlopen('http://ec2-34-211-226-74.us-west-2.compute.amazonaws.com/api/History')
             data = json.load(response)
 
             jsondata = {}
@@ -61,6 +63,15 @@ def history(request, game_id):
                 playersname[x['discordUsername']] = x['score']
         except IndexError:
             return HttpResponse("No Availible Data")
+    try:
+        for x in playersarray:
+            name = Player.objects.get(player_name = x['discordUsername'])
+            name.player_points = x['score']
+            name.save()
+    except Player.DoesNotExist:
+        for x in playersarray:
+            user = Player.objects.createPlayer(x['discordUsername'], x['score'])
+
 
     try:
         round1 = rounds[0]
@@ -142,7 +153,7 @@ def history(request, game_id):
         round4win = 'Round Has Not Started'
         round4triesnums = ['Round Has Not Started','Round Has Not Started','Round Has Not Started']
 
-
+    players = Player.objects.all().order_by('-player_points')
     context = {
     'round1' : round1win,
     'round1tries' : round1triesnums,
@@ -156,7 +167,8 @@ def history(request, game_id):
     'round4' : round4win,
     'round4tries' : round4triesnums,
 
-    'players': playersname
+    'players':players,
+    # 'players': playersname
     }
     # print jsondata
     return render(request, 'diffuse/history.html', context)
