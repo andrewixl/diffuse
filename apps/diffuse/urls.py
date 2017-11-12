@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^(?P<game_id>\d+)/diffuse$', views.diffuse),
     url(r'^(?P<game_id>\d+)/history$', views.history),
     url(r'^getgame$', views.gotogame),
+    url(r'^privacy$', views.privacy),
 ]
