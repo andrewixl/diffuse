@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 import urllib2
 import json
 # from urllib import request
@@ -38,22 +38,47 @@ def history(request, game_id):
         for x in playersarray:
             playersname[x['discordUsername']] = x['score']
     except ValueError:
-        response = urllib2.urlopen('http://b5b1e790.ngrok.io/api/History')
-        data = json.load(response)
+        print "Entered Into History"
+        try:
+            response = urllib2.urlopen('http://b5b1e790.ngrok.io/api/History')
+            data = json.load(response)
 
-        jsondata = {}
-        for key, value in data.items():
-            jsondata[key] = value
+            jsondata = {}
+            for key, value in data.items():
+                jsondata[key] = value
 
-        rounds = []
-        rounds = jsondata['rounds']
+            rounds = []
+            rounds = jsondata['rounds']
 
-        playersarray = []
-        playersarray = jsondata['players']
+            playersarray = []
+            playersarray = jsondata['players']
 
-        playersname = {}
-        for x in playersarray:
-            playersname[x['discordUsername']] = x['score']
+            playersname = {}
+            for x in playersarray:
+                playersname[x['discordUsername']] = x['score']
+        except IndexError:
+            return HttpResponse("No Availible Data")
+
+    try:
+        round1 = rounds[0]
+    except IndexError:
+        round1 = 0
+    try:
+        round2 = rounds[1]
+    except IndexError:
+        round2 = 0
+    try:
+        round3 = rounds[2]
+    except IndexError:
+        round3 = 0
+    try:
+        round4 = rounds[3]
+    except IndexError:
+        round4 = 0
+    try:
+        round5 = rounds[4]
+    except IndexError:
+        round5 = 0
 
 
 
@@ -69,11 +94,11 @@ def history(request, game_id):
     # 'round' : jsondata['round'],
     # 'gameID' : jsondata['gameID'],
     # 'roundStatus' : jsondata['roundStatus'],
-    'round1' : rounds[0],
-    # 'round2' : rounds[1],
-    # 'round3' : rounds[2],
-    # 'round4' : rounds[3],
-    # 'round5' : rounds[4],
+    'round1' : round1,
+    'round2' : round2,
+    'round3' : round3,
+    'round4' : round4,
+    'round5' : round5,
     'players': playersname
     }
     print playersname
