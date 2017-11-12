@@ -3,7 +3,7 @@
 
   <head>
     {% load staticfiles %}
-    <meta http-equiv="refresh" content="5; URL=http://localhost:8000/1/history">
+    <meta http-equiv="refresh" content="1; URL=http://localhost:8000/1/history">
     <!-- <meta http-equiv="refresh" content="5; URL=http://www.yourdomain.com/yoursite.html"> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -35,7 +35,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Defuse the Situation</a>
+        <a class="navbar-brand js-scroll-trigger" href="/">Defuse the Situation</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -43,13 +43,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#viewgame">View Game</a>
+              <a class="nav-link js-scroll-trigger" href="/#viewgame">View Game</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+              <a class="nav-link js-scroll-trigger" href="/#download">Download</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#rules">How to Play</a>
+              <a class="nav-link js-scroll-trigger" href="/#rules">How to Play</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -71,34 +71,27 @@
                 </tr>
               </thead>
               <tbody>
-                {% for key, value in players.items %}
+                <!-- {% for key, value in players.items %}
                 <tr>
                     <td>{{ key }}</td>
                     <td>{{ value }}</td>
+                </tr>
+                {% endfor %} -->
+
+                {% for players in players %}
+                <tr>
+                  <td>{{players.player_name}}</td>
+                  <td>{{players.player_points}}</td>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
           </div>
-          <div class="col-lg-6 my-auto">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Player</th>
-                  <th>Points</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for key, value in players.items %}
-                <tr>
-                    <td>{{ key }}</td>
-                    <td>{{ value }}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+          <div class="col-lg-6 my-auto" align="center">
+            <img src="{% static 'diffuse/img/fullBomb.gif' %}" alt="" style="max-width: 60%;">
+            <h1>00:00:00</h1>
           </div>
-          <div class="col-lg-12 my-auto">
+          <div class="col-lg-12 my-auto" style="top:-12%;">
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -107,7 +100,6 @@
                   <th>Try #2</th>
                   <th>Try #3</th>
                   <th>Winner</th>
-                  <th>Time Elapsed</th>
                 </tr>
               </thead>
               <tbody>
@@ -117,7 +109,6 @@
                   <td>{{round1tries.1}}</td>
                   <td>{{round1tries.2}}</td>
                   <td>{{round1}}</td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>#2</td>
@@ -125,7 +116,6 @@
                   <td>{{round2tries.1}}</td>
                   <td>{{round2tries.2}}</td>
                   <td>{{round2}}</td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>#3</td>
@@ -133,7 +123,6 @@
                   <td>{{round3tries.1}}</td>
                   <td>{{round3tries.2}}</td>
                   <td>{{round3}}</td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>#4</td>
@@ -141,7 +130,6 @@
                   <td>{{round4tries.1}}</td>
                   <td>{{round4tries.2}}</td>
                   <td>{{round4}}</td>
-                  <td></td>
                 </tr>
               </tbody>
             </table>
@@ -204,7 +192,7 @@
     <script type="text/javascript">
       setTimeout(function(){
         window.location.reload(1);
-      }, 5000);
+      }, 1000);
     </script>
 
   </body>
