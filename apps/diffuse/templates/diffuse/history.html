@@ -1,64 +1,229 @@
-<h1>Game History</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Round #</th>
-      <th>Winner</th>
-      <th>Time Elapsed</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{gameID}}</td>
-      <td>{{roundStatus}}</td>
-      <!-- <td>{{round}}</td>
-      <td>{{players}}</td>
-      <td>{{goodTeam}}</td>
-      <td>{{badTeam}}</td>
-      <td>{{defuser}}</td>
-      <td>{{spies}}</td>
-      <td>{{bombExplodeTime}}</td>
-      <td>{{bombcode}}</td> -->
+  <head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-      <!-- {% if product.id == theid %}
+    <title>Defuse the Situation</title>
 
-        <td><form class="" action="/changestatus/{{product.id}}" method="post">
-          {% csrf_token %}
-          <select name = "status">
-            <option value="5 Votes Needed">5 Votes Needed</option>
-            <option value="Ready to Order">Ready to Order</option>
-            <option value="Needs to Be Signed">Needs to Be Signed</option>
-            <option value="Ordered">Ordered</option>
-            <option value="Recieved">Recieved</option>
-          </select>
-          <button type="submit" name="edit">Save</button>
-        </form></td>
-      {% elif theid %}
-        <td></td>
-        <td></td>
-      {% else %}
-      <td><form class="" action="/status/{{product.id}}" method="post">
-        {% csrf_token %}
-        <button type="submit" name="edit">Edit</button>
-      </form></td>
-      {% endif %} -->
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'diffuse/bootstrap/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-    </tr>
-  </tbody>
-</table>
+    <!-- Custom fonts for this template -->
+    <link rel="stylesheet" href="{% static 'diffuse/bootstrap/vendor/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'diffuse/bootstrap/vendor/simple-line-icons/css/simple-line-icons.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Player</th>
-      <th>Points</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{{gameID}}</td>
-      <td>{{roundStatus}}</td>
-    </tr>
-  </tbody>
-</table>
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="{% static 'diffuse/bootstrap/device-mockups/device-mockups.min.css' %}">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'diffuse/bootstrap/css/new-age.min.css' %}" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Diffuse the Situation</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#viewgame">View Game</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#rules">How to Play</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead" align = "center">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-lg-6 my-auto">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key, value in players.items %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-6 my-auto">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key, value in players.items %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-12 my-auto">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Round</th>
+                  <th>Try #1</th>
+                  <th>Try #2</th>
+                  <th>Try #3</th>
+                  <th>Winner</th>
+                  <th>Time Elapsed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#1</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  {% if round1 == 0 %}
+                  <td>Round Has Not Started</td>
+                  {% elif round1 == 1 %}
+                  <td>Good Won</td>
+                  {% else %}
+                  <td>Bad Won</td>
+                  {% endif %}
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>#2</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  {% if round2 == 0 %}
+                  <td>Round Has Not Started</td>
+                  {% elif round2 == 1 %}
+                  <td>Good Won</td>
+                  {% else %}
+                  <td>Bad Won</td>
+                  {% endif %}
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>#3</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  {% if round3 == 0 %}
+                  <td>Round Has Not Started</td>
+                  {% elif round3 == 1 %}
+                  <td>Good Won</td>
+                  {% else %}
+                  <td>Bad Won</td>
+                  {% endif %}
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>#4</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  {% if round4 == 0 %}
+                  <td>Round Has Not Started</td>
+                  {% elif round4 == 1 %}
+                  <td>Good Won</td>
+                  {% else %}
+                  <td>Bad Won</td>
+                  {% endif %}
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="contact bg-primary" id="contact">
+      <div class="container">
+        <h2>We
+          <i class="fa fa-heart"></i>
+          new friends!</h2>
+        <ul class="list-inline list-social">
+          <li class="list-inline-item social-twitter">
+            <a href="#">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li class="list-inline-item social-facebook">
+            <a href="#">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li class="list-inline-item social-google-plus">
+            <a href="#">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2017 Diffuse the Situtation. All Rights Reserved.</p>
+        <ul class="list-inline">
+          <li class="list-inline-item">
+            <a href="#">Privacy</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">Terms</a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">FAQ</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'diffuse/bootstrap/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'diffuse/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'diffuse/bootstrap/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{% static 'diffuse/bootstrap/js/new-age.min.js' %}"></script>
+
+  </body>
+
+</html>
