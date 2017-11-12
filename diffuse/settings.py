@@ -25,7 +25,7 @@ SECRET_KEY = '!u!fc)u+r51c@iu5tbe3xl-ds3ev(_k^jkba88!s8glel$ot7o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['35.163.237.59', 'www.defusethesituation.tk', 'defusethesituation.tk', 'localhost']
 
 
 # Application definition
