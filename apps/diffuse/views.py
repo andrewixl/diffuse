@@ -21,17 +21,21 @@ def history(request, game_id):
     jsondata = {}
     for key, value in data.items():
         jsondata[key] = value
+
+    rounds = jsondata['roundStatus']
+    print rounds is str
     context = {
-    'bombcode' : jsondata['code'],
-    'spies' : jsondata['spies'],
-    'players' : jsondata['players'],
-    'bombExplodeTime' : jsondata['bombExplodeTime'],
-    'badTeam' : jsondata['badTeam'],
-    'defuser' : jsondata['defuser'],
-    'goodTeam' : jsondata['goodTeam'],
-    'round' : jsondata['round'],
-    'gameID' : jsondata['gameID'],
-    'roundStatus' : jsondata['roundStatus'],
+    # 'bombcode' : jsondata['code'],
+    # 'spies' : jsondata['spies'],
+    # 'players' : jsondata['players'],
+    # #'bombExplodeTime' : jsondata['bombExplodeTime'],
+    # 'badTeam' : jsondata['badTeam'],
+    # 'defuser' : jsondata['defuser'],
+    # 'goodTeam' : jsondata['goodTeam'],
+    # 'round' : jsondata['round'],
+    # 'gameID' : jsondata['gameID'],
+    # 'roundStatus' : jsondata['roundStatus'],
+    #'round1' : rounds[1]
     }
-    print jsondata
+    # print jsondata
     return render(request, 'diffuse/history.html', context)

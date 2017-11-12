@@ -1,32 +1,25 @@
-<h1>History</h1>
+<h1>Game History</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Game ID</th>
-      <th>Round Status</th>
-      <th>Round</th>
-      <th>Players</th>
-      <th>Good Team</th>
-      <th>Bad Team</th>
-      <th>Defuser</th>
-      <th>Spies</th>
-      <th>Bomb Explode Time</th>
-      <th>Bomb Code</th>
+      <th>Round #</th>
+      <th>Winner</th>
+      <th>Time Elapsed</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>{{gameID}}</td>
       <td>{{roundStatus}}</td>
-      <td>{{round}}</td>
+      <!-- <td>{{round}}</td>
       <td>{{players}}</td>
       <td>{{goodTeam}}</td>
       <td>{{badTeam}}</td>
       <td>{{defuser}}</td>
       <td>{{spies}}</td>
       <td>{{bombExplodeTime}}</td>
-      <td>{{bombcode}}</td>
+      <td>{{bombcode}}</td> -->
 
       <!-- {% if product.id == theid %}
 
@@ -51,6 +44,21 @@
       </form></td>
       {% endif %} -->
 
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{gameID}}</td>
+      <td>{{roundStatus}}</td>
     </tr>
   </tbody>
 </table>
