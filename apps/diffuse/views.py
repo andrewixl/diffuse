@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
-import urllib2
+# import urllib2
 import json
 from .models import Player
+from datetime import datetime
+# import dateutil.parser
 # from urllib import request
+from urllib.request import urlopen
 
 def index(request):
    return render(request, 'diffuse/index.html')
@@ -25,7 +28,7 @@ def gotogame(request):
 
 def history(request, game_id):
     try:
-        response = urllib2.urlopen('http://ec2-34-211-226-74.us-west-2.compute.amazonaws.com/api/ActiveGame')
+        response = urlopen('http://ec2-34-211-226-74.us-west-2.compute.amazonaws.com/api/ActiveGame')
         data = json.load(response)
 
         jsondata = {}
@@ -43,7 +46,7 @@ def history(request, game_id):
             playersname[x['discordUsername']] = x['score']
 
     except ValueError:
-        print "Entered Into History"
+        print ("Entered Into History")
         try:
             response = urllib2.urlopen('http://ec2-34-211-226-74.us-west-2.compute.amazonaws.com/api/History')
             data = json.load(response)
@@ -69,6 +72,7 @@ def history(request, game_id):
             name.player_points = x['score']
             name.save()
     except Player.DoesNotExist:
+        Player.objects.all().delete()
         for x in playersarray:
             user = Player.objects.createPlayer(x['discordUsername'], x['score'])
 
@@ -84,6 +88,8 @@ def history(request, game_id):
         for x in range(0, len(round1triesnums)):
             if round1triesnums[x] == 1:
                 round1triesnums[x] = 'Bomb Defused'
+                round1win = 'Good Won'
+                break
             elif round1triesnums[x] == 2:
                 round1triesnums[x] = 'Bomb Exploded'
             elif round1triesnums[x] == 0:
@@ -104,6 +110,8 @@ def history(request, game_id):
         for x in range(0, len(round2triesnums)):
             if round2triesnums[x] == 1:
                 round2triesnums[x] = 'Bomb Defused'
+                round2win = 'Good Won'
+                break
             elif round2triesnums[x] == 2:
                 round2triesnums[x] = 'Bomb Exploded'
             elif round2triesnums[x] == 0:
@@ -124,6 +132,8 @@ def history(request, game_id):
         for x in range(0, len(round3triesnums)):
             if round3triesnums[x] == 1:
                 round3triesnums[x] = 'Bomb Defused'
+                round3win = 'Good Won'
+                break
             elif round3triesnums[x] == 2:
                 round3triesnums[x] = 'Bomb Exploded'
             elif round3triesnums[x] == 0:
@@ -144,6 +154,8 @@ def history(request, game_id):
         for x in range(0, len(round4triesnums)):
             if round4triesnums[x] == 1:
                 round4triesnums[x] = 'Bomb Defused'
+                round4win = 'Good Won'
+                break
             elif round4triesnums[x] == 2:
                 round4triesnums[x] = 'Bomb Exploded'
             elif round4triesnums[x] == 0:
@@ -152,6 +164,12 @@ def history(request, game_id):
     except IndexError:
         round4win = 'Round Has Not Started'
         round4triesnums = ['Round Has Not Started','Round Has Not Started','Round Has Not Started']
+
+
+    starttime = dateutil.parser.parse(jsondata['roundStartTime'])
+    servertime = dateutil.parser.parse(jsondata['serverTime'])
+
+    totaltime =(servertime-starttime)
 
     players = Player.objects.all().order_by('-player_points')
     context = {
@@ -169,6 +187,7 @@ def history(request, game_id):
 
     'players':players,
     # 'players': playersname
+    'totaltime':totaltime
     }
     # print jsondata
     return render(request, 'diffuse/history.html', context)
